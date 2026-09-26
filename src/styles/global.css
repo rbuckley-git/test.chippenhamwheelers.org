@@ -1,0 +1,45 @@
+:root {
+    --cw-orange: #ff732c;
+    --cw-orange-dark: #914219;
+
+    --cw-black: #000;
+    --cw-dark-grey: #333;
+    --cw-grey: #666;
+    --cw-light-grey: #e8e8e8;
+    --cw-white: #fff;
+
+    --content-width: 1200px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    font-family: "Raleway", Arial, sans-serif;
+    color: var(--cw-dark-grey);
+    background: var(--cw-white);
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+main {
+    width: min(var(--content-width), calc(100% - 40px));
+    margin: 0 auto;
+}
+
+a {
+    color: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: "Oswald", Arial, sans-serif;
+}
