@@ -1,0 +1,96 @@
+---
+import LiveSearch from "emdash/ui/search";
+
+interface Props {
+	siteTitle: string;
+	siteLogo: { url?: string; alt?: string } | null;
+	primaryMenu: { items: Array<{ label: string; url: string; target?: string }> } | null;
+	utilityMenu: { items: Array<{ label: string; url: string; target?: string }> } | null;
+}
+
+const { siteTitle, siteLogo, primaryMenu, utilityMenu } = Astro.props;
+const primaryItems = primaryMenu?.items ?? [];
+const isStarterMenu =
+	primaryItems.length === 3 &&
+	primaryItems.map((item) => item.label).join("|") === "Home|Posts|About";
+
+const presentationItems = (isStarterMenu
+	? [
+			{ label: "Home", url: "/" },
+			{ label: "About Us", url: "/about-us/" },
+			{ label: "Our News", url: "/our-news/" },
+			{ label: "Club Calendar", url: "/events/" },
+      { label: "Club route library", url: "/club-route-library/" },
+			{ label: "Club Activities", url: "/club-activities/" },
+			{ label: "Racing", url: "/racing/" },
+			{ label: "Youth", url: "/youth/" },
+			{ label: "Membership", url: "/membership/" },
+		]
+	: primaryItems
+).map((item) =>
+	item.url === "/club-activities/club-route-library/"
+		? { ...item, url: "/club-route-library/" }
+		: item.url === "/about" || item.url === "/about/" || item.label.trim().toLowerCase() === "about"
+			? { ...item, label: "About Us", url: "/about-us/" }
+			: item,
+);
+const utilityItems = utilityMenu?.items?.length
+	? utilityMenu.items
+	: [
+			{ label: "Membership", url: "/membership/" },
+			{ label: "Contact", url: "/contact/" },
+		];
+---
+
+<header class="site-header">
+	<a class="skip-link" href="#main-content">Skip to content</a>
+	<div class="utility-bar">
+		<div class="site-width utility-bar__inner">
+			<nav class="utility-nav" aria-label="Top links">
+				{utilityItems.map((item) => (
+					<a href={item.url} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>
+						{item.label}
+					</a>
+				))}
+			</nav>
+			<div class="utility-search">
+				<LiveSearch
+					placeholder="Search"
+					collections={["posts", "pages"]}
+					class="site-search"
+					inputClass="site-search__input"
+					resultsClass="site-search__results"
+					resultClass="site-search__result"
+				/>
+			</div>
+		</div>
+	</div>
+	<div class="site-width masthead">
+		<a class="site-brand" href="/" aria-label={siteTitle}>
+			{siteLogo?.url ? (
+				<img src={siteLogo.url} alt={siteLogo.alt || siteTitle} />
+			) : (
+				<img src="/images/cdw-logo.gif" alt={siteTitle} />
+			)}
+		</a>
+		<details class="mobile-menu">
+			<summary>Menu</summary>
+			<nav aria-label="Primary navigation">
+				<ul>
+					{presentationItems.map((item) => (
+						<li><a href={item.url} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>{item.label}</a></li>
+					))}
+				</ul>
+			</nav>
+		</details>
+	</div>
+	<nav class="primary-nav" aria-label="Primary navigation">
+		<div class="site-width">
+			<ul>
+				{presentationItems.map((item) => (
+					<li><a href={item.url} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>{item.label}</a></li>
+				))}
+			</ul>
+		</div>
+	</nav>
+</header>

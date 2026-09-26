@@ -1,0 +1,37 @@
+---
+import NewsCard from "./NewsCard.astro";
+
+interface PostSummary {
+	id: string;
+	data: {
+		title: string;
+		excerpt?: string;
+		content?: unknown[];
+		publishedAt: Date | null;
+	};
+}
+
+interface Props {
+	posts: PostSummary[];
+	currentSlug?: string;
+	limit?: number;
+}
+
+const { posts, currentSlug, limit = 5 } = Astro.props;
+const recentPosts = posts.filter((post) => post.id !== currentSlug).slice(0, limit);
+---
+
+<aside class="post-sidebar" aria-label="Recent posts">
+	<h2>Recent Posts</h2>
+	{
+		recentPosts.length > 0 ? (
+			<div class="post-sidebar__cards">
+				{recentPosts.map((post) => (
+					<NewsCard post={post} />
+				))}
+			</div>
+		) : (
+			<p>No recent posts.</p>
+		)
+	}
+</aside>

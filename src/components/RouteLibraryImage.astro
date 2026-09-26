@@ -1,0 +1,24 @@
+---
+interface Props {
+	node: {
+		asset?: { _ref?: string; url?: string };
+		alt?: string;
+		caption?: string;
+		width?: number;
+		height?: number;
+	};
+}
+
+const { node } = Astro.props;
+const asset = node?.asset;
+if (!asset) return null;
+
+const source = asset.url?.startsWith("http")
+	? asset.url
+	: `/_emdash/api/media/file/${encodeURIComponent(asset.url ?? asset._ref ?? "")}`;
+---
+
+<figure class="emdash-image emdash-image--align-wide">
+	<img src={source} alt={node.alt ?? ""} width={node.width} height={node.height} loading="lazy" decoding="async" />
+	{node.caption && <figcaption>{node.caption}</figcaption>}
+</figure>

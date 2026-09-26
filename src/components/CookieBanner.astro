@@ -1,0 +1,26 @@
+<aside class="cookie-banner" data-cookie-banner hidden aria-label="Cookie preferences">
+	<div>
+		<strong>We value your privacy</strong>
+		<p>We use essential cookies to make this site work. Optional cookies help us understand site usage and support embedded content.</p>
+	</div>
+	<div class="cookie-banner__actions">
+		<button type="button" data-cookie-reject>Reject optional cookies</button>
+		<button type="button" class="button button--orange" data-cookie-accept>Accept all</button>
+	</div>
+</aside>
+
+<script>
+	const banner = document.querySelector<HTMLElement>("[data-cookie-banner]");
+	const consentKey = "cw-cookie-consent";
+
+	if (banner && !localStorage.getItem(consentKey)) {
+		banner.hidden = false;
+	}
+
+	for (const button of document.querySelectorAll<HTMLElement>("[data-cookie-accept], [data-cookie-reject]")) {
+		button.addEventListener("click", () => {
+			localStorage.setItem(consentKey, button.hasAttribute("data-cookie-accept") ? "all" : "essential");
+			if (banner) banner.hidden = true;
+		});
+	}
+</script>

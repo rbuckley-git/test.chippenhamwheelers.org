@@ -1,0 +1,41 @@
+---
+import NewsCard from "./NewsCard.astro";
+import PostSidebar from "./PostSidebar.astro";
+
+interface Props {
+	posts: Array<{
+		id: string;
+		data: {
+			title: string;
+			excerpt?: string;
+			content?: unknown[];
+			publishedAt: Date | null;
+		};
+	}>;
+	recentPosts?: Array<{
+		id: string;
+		data: { title: string; publishedAt: Date | null };
+	}>;
+	page: number;
+	hasMore: boolean;
+}
+
+const { posts, recentPosts = posts, page, hasMore } = Astro.props;
+const pageHref = (pageNumber: number) =>
+	pageNumber === 1 ? "/our-news/" : `/our-news/page/${pageNumber}/`;
+---
+
+<div class="archive-shell site-width">
+	<h1 class="archive-title">Our News</h1>
+	<div class="archive-layout">
+		<PostSidebar posts={recentPosts} limit={6} />
+		<section class="news-list" aria-label="News articles">
+			{posts.length > 0 ? posts.map((post) => <NewsCard post={post} />) : <p>No news posts yet.</p>}
+			<nav class="archive-pagination" aria-label="News pagination">
+				{page > 1 && <a href={pageHref(page - 1)}>← Previous Page</a>}
+				<span class="archive-pagination__current">Page {page}</span>
+				{hasMore && <a href={pageHref(page + 1)}>Next Page →</a>}
+			</nav>
+		</section>
+	</div>
+</div>

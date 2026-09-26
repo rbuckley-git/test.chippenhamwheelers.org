@@ -1,0 +1,15 @@
+---
+interface Props {
+	node: {
+		html?: string;
+	};
+}
+
+const { node } = Astro.props;
+const source = node?.html?.match(/<iframe\b[^>]*\bsrc=["']([^"']+)["'][^>]*>/i)?.[1] ?? "";
+const allowed = /^(https:\/\/ridewithgps\.com\/|https:\/\/www\.ridewithgps\.com\/|https:\/\/www\.strava\.com\/)/i.test(source);
+const src = allowed ? source : null;
+const height = node?.html?.match(/\bheight=["'](\d+)["']/i)?.[1] ?? "700";
+---
+
+{src && <iframe class="imported-iframe" title="Embedded club activity" src={src} height={height} loading="lazy" />}

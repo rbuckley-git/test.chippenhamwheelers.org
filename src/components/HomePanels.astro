@@ -1,0 +1,29 @@
+---
+import RideWithGpsEvents from "./RideWithGpsEvents.astro";
+import StravaActivity from "./StravaActivity.astro";
+import NewsCard from "./NewsCard.astro";
+
+interface Props {
+	posts: Array<{
+		id: string;
+		data: { title: string; excerpt?: string | null; content?: unknown[]; publishedAt: Date | null };
+	}>;
+}
+
+const { posts } = Astro.props;
+---
+
+<div class="home-panels">
+	<section class="home-panel home-panel--news" aria-labelledby="news-heading">
+		<h1 id="news-heading">News</h1>
+		{posts.length === 0 ? (
+			<p>No posts yet.</p>
+		) : (
+			<div class="news-grid">
+				{posts.slice(0, 6).map((post) => <NewsCard post={post} />)}
+			</div>
+		)}
+	</section>
+	<RideWithGpsEvents />
+	<StravaActivity />
+</div>

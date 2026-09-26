@@ -5,6 +5,11 @@ dist
 uploads
 data.db
 
+# Local development runtime state
+.wrangler/
+.pnpm-store/
+.agents/skills/wordpress-theme-to-emdash/
+
 # Environment / Wrangler secrets
 .env
 .env.*

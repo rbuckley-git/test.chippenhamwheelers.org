@@ -2,13 +2,13 @@
 	"$schema": "https://emdashcms.com/seed.schema.json",
 	"version": "1",
 	"meta": {
-		"name": "Starter",
-		"description": "A minimal EmDash starter with posts and pages",
-		"author": "EmDash"
+		"name": "Chippenham Wheelers",
+		"description": "Public presentation for Chippenham and District Wheelers",
+		"author": "Chippenham and District Wheelers"
 	},
 	"settings": {
-		"title": "My Site",
-		"tagline": "Built with EmDash"
+		"title": "Chippenham Wheelers",
+		"tagline": "supporting cycling in all its forms"
 	},
 	"collections": [
 		{
@@ -75,12 +75,8 @@
 			"collections": ["posts"],
 			"terms": [
 				{
-					"slug": "general",
-					"label": "General"
-				},
-				{
-					"slug": "updates",
-					"label": "Updates"
+					"slug": "uncategorised",
+					"label": "Uncategorised"
 				}
 			]
 		},
@@ -92,12 +88,32 @@
 			"collections": ["posts"],
 			"terms": [
 				{
-					"slug": "starter",
-					"label": "Starter"
+					"slug": "event-calendar",
+					"label": "Event Calendar"
 				},
 				{
-					"slug": "example",
-					"label": "Example"
+					"slug": "forrest-of-dean",
+					"label": "Forrest of Dean"
+				},
+				{
+					"slug": "leisure",
+					"label": "Leisure"
+				},
+				{
+					"slug": "off-road",
+					"label": "Off-road"
+				},
+				{
+					"slug": "ridewithgps",
+					"label": "RideWithGPS"
+				},
+				{
+					"slug": "rwgps",
+					"label": "RWGPS"
+				},
+				{
+					"slug": "tuesday-evening-at-castle-combe-circuit",
+					"label": "Tuesday evening at Castle Combe circuit"
 				}
 			]
 		}
@@ -114,13 +130,59 @@
 				},
 				{
 					"type": "custom",
-					"label": "Posts",
-					"url": "/posts"
+					"label": "About Us",
+					"url": "/about-us/"
+				},
+			{
+					"type": "custom",
+					"label": "Our News",
+					"url": "/our-news/"
+				},
+			{
+					"type": "custom",
+					"label": "Club Calendar",
+					"url": "/events/"
+				},
+			{
+					"type": "custom",
+					"label": "Club route library",
+          "url": "/club-route-library/"
+				},
+			{
+					"type": "custom",
+					"label": "Club Activities",
+					"url": "/club-activities/"
+				},
+			{
+					"type": "custom",
+					"label": "Racing",
+					"url": "/racing/"
+				},
+			{
+					"type": "custom",
+					"label": "Youth",
+					"url": "/youth/"
+				},
+			{
+					"type": "custom",
+					"label": "Membership",
+					"url": "/membership/"
+				}
+			]
+		},
+		{
+			"name": "utility",
+			"label": "Utility Navigation",
+			"items": [
+				{
+					"type": "custom",
+					"label": "Membership",
+					"url": "/membership/"
 				},
 				{
 					"type": "custom",
-					"label": "About",
-					"url": "/about"
+					"label": "Contact",
+					"url": "/contact/"
 				}
 			]
 		}

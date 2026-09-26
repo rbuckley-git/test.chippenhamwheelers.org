@@ -1,0 +1,27 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../../layouts/Base.astro";
+import NewsArchive from "../../../components/NewsArchive.astro";
+
+const page = Number.parseInt(Astro.params.page ?? "", 10);
+if (!Number.isInteger(page) || page < 2) {
+	return Astro.redirect("/our-news/");
+}
+
+const { entries: posts, cacheHint, hasMore = false } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+	limit: 10,
+	offset: (page - 1) * 10,
+});
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const { entries: recentPosts, cacheHint: recentCacheHint } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+	limit: 10,
+	offset: 0,
+});
+if (Astro.cache?.enabled) Astro.cache.set(recentCacheHint);
+---
+
+<Base title={`Our News — Page ${page}`} pageTitle={`Our News — Page ${page}`}>
+	<NewsArchive posts={posts} recentPosts={recentPosts} page={page} hasMore={hasMore} />
+</Base>

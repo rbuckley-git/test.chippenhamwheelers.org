@@ -1,0 +1,49 @@
+---
+import { getEmDashEntry, getSeoMeta, getSiteSettings, MediaRepository } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import ImportedContentImage from "../components/ImportedContentImage.astro";
+import { resolveImportedMedia } from "../utils/imported-media";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+
+const slug = "club-route-library";
+const { entry: page, cacheHint } = await getEmDashEntry("pages", slug);
+
+if (!page) {
+	return Astro.redirect("/404");
+}
+
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: Astro.url.pathname.replace(/\/$/, ""),
+});
+
+const mediaRepository = Astro.locals.emdash?.db
+	? new MediaRepository(Astro.locals.emdash.db)
+	: null;
+const routeContent = (await resolveImportedMedia(page.data.content ?? [], mediaRepository)) as NonNullable<typeof page.data.content>;
+const hasContentHeading = routeContent.some((node) => {
+	if (!node || typeof node !== "object") return false;
+	const block = node as { _type?: string; style?: string };
+	return block._type === "block" && block.style === "h1";
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	image={seo.ogImage}
+	content={{ collection: "pages", id: page.data.id, slug }}
+>
+	<article class="route-library-page site-width">
+		{!hasContentHeading && <h1 {...page.edit.title}>{page.data.title}</h1>}
+		<div class="route-library-content" {...page.edit.content}>
+			<PortableText value={routeContent} components={{ type: { image: ImportedContentImage } }} />
+		</div>
+	</article>
+</Base>

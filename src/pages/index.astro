@@ -1,50 +1,44 @@
 ---
-import { getEmDashCollection, getSiteSettings } from "emdash";
-import { Image } from "emdash/ui";
+import { getEmDashCollection, getEmDashEntry, getSiteSettings } from "emdash";
+import { PortableText } from "emdash/ui";
 import Base from "../layouts/Base.astro";
+import PortableTextColumns from "../components/PortableTextColumns.astro";
+import ImportedIframe from "../components/ImportedIframe.astro";
+import HomePanels from "../components/HomePanels.astro";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 
-const { entries: posts, cacheHint } = await getEmDashCollection("posts", {
-	orderBy: { published_at: "desc" },
-	limit: 10,
-});
+const [{ entries: posts, cacheHint }, { entry: homePage, cacheHint: homeCacheHint }] = await Promise.all([
+	getEmDashCollection("posts", { orderBy: { published_at: "desc" }, limit: 10 }),
+	getEmDashEntry("pages", "home"),
+]);
 const { siteTitle, siteTagline } = resolveStarterSiteIdentity(
 	await getSiteSettings(),
 );
-if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+const firstHomeBlock = homePage?.data.content?.[0] as { _type?: string; columns?: unknown[] } | undefined;
+const importedHomeContent =
+	firstHomeBlock?._type === "columns" && firstHomeBlock.columns?.length === 3
+		? homePage?.data.content?.slice(1)
+		: homePage?.data.content;
+if (Astro.cache?.enabled) {
+	Astro.cache.set(cacheHint);
+	Astro.cache.set(homeCacheHint);
+}
 ---
 
 <Base title={siteTitle} description={siteTagline}>
-	<h1>Recent Posts</h1>
-
-	{
-		posts.length === 0 ? (
-			<p>
-				No posts yet. <a href="/_emdash/admin/content/posts/new">Create one</a>.
-			</p>
-		) : (
-			<ul>
-				{posts.map((post) => (
-					<li>
-						<a href={`/posts/${post.id}`}>
-							{post.data.featured_image && (
-								<div {...post.edit.featured_image}><Image image={post.data.featured_image} /></div>
-							)}
-							<h2 {...post.edit.title}>{post.data.title}</h2>
-						</a>
-						{post.data.excerpt && <p {...post.edit.excerpt}>{post.data.excerpt}</p>}
-						{post.data.publishedAt && (
-							<time datetime={post.data.publishedAt.toISOString()}>
-								{post.data.publishedAt.toLocaleDateString("en-US", {
-									year: "numeric",
-									month: "long",
-									day: "numeric",
-								})}
-							</time>
-						)}
-					</li>
-				))}
-			</ul>
-		)
-	}
+	{homePage?.data.content?.length ? (
+		<>
+			<HomePanels posts={posts} />
+			<div class="home-content" {...homePage.edit.content}>
+			<PortableText
+				value={importedHomeContent}
+				components={{ type: { columns: PortableTextColumns, htmlBlock: ImportedIframe } }}
+			/>
+			</div>
+		</>
+	) : (
+		<section class="home-fallback site-width">
+			<HomePanels posts={posts} />
+		</section>
+	)}
 </Base>

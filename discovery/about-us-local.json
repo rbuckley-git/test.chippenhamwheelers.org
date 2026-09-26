@@ -1,0 +1,101 @@
+{
+  "title": "About Us",
+  "content": [
+    {
+      "_type": "block",
+      "_key": "about-intro",
+      "style": "h1",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-intro-text", "text": "About Us", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-welcome",
+      "style": "normal",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-welcome-text", "text": "Chippenham and District Wheelers is a friendly cycling club supporting riders of all ages and abilities. We organise regular rides, social activities, racing and long-distance events across Wiltshire and the surrounding areas.", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-handbook-heading",
+      "style": "h2",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-handbook-heading-text", "text": "Club Handbook", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-handbook",
+      "style": "normal",
+      "markDefs": [{ "_key": "handbook-link", "_type": "link", "href": "/club-handbook/" }],
+      "children": [{ "_type": "span", "_key": "about-handbook-text", "text": "Read the club handbook for information about rides, club rules and how the club operates.", "marks": ["handbook-link"] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-contacts-heading",
+      "style": "h2",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-contacts-heading-text", "text": "Contacts", "marks": [] }]
+    },
+    {
+      "_type": "table",
+      "_key": "about-contacts-table",
+      "hasHeaderRow": true,
+      "rows": [
+        { "_type": "tableRow", "_key": "about-contact-row-0", "cells": [
+          { "_type": "tableCell", "_key": "about-contact-cell-0-0", "isHeader": true, "content": [{ "_type": "block", "style": "normal", "markDefs": [], "children": [{ "_type": "span", "text": "Description", "marks": [] }] }] },
+          { "_type": "tableCell", "_key": "about-contact-cell-0-1", "isHeader": true, "content": [{ "_type": "block", "style": "normal", "markDefs": [], "children": [{ "_type": "span", "text": "Email address", "marks": [] }] }] }
+        ] },
+        { "_type": "tableRow", "_key": "about-contact-row-1", "cells": [
+          { "_type": "tableCell", "_key": "about-contact-cell-1-0", "content": [{ "_type": "block", "style": "normal", "markDefs": [], "children": [{ "_type": "span", "text": "General enquiries", "marks": [] }] }] },
+          { "_type": "tableCell", "_key": "about-contact-cell-1-1", "content": [{ "_type": "block", "style": "normal", "markDefs": [{ "_key": "general-email", "_type": "link", "href": "mailto:info@chippenhamwheelers.org" }], "children": [{ "_type": "span", "text": "info@chippenhamwheelers.org", "marks": ["general-email"] }] }] }
+        ] },
+        { "_type": "tableRow", "_key": "about-contact-row-2", "cells": [
+          { "_type": "tableCell", "_key": "about-contact-cell-2-0", "content": [{ "_type": "block", "style": "normal", "markDefs": [], "children": [{ "_type": "span", "text": "Membership", "marks": [] }] }] },
+          { "_type": "tableCell", "_key": "about-contact-cell-2-1", "content": [{ "_type": "block", "style": "normal", "markDefs": [{ "_key": "membership-email", "_type": "link", "href": "mailto:membership@chippenhamwheelers.org" }], "children": [{ "_type": "span", "text": "membership@chippenhamwheelers.org", "marks": ["membership-email"] }] }] }
+        ] }
+      ]
+    },
+    {
+      "_type": "block",
+      "_key": "about-committee-heading",
+      "style": "h2",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-committee-heading-text", "text": "Committee", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-committee",
+      "style": "normal",
+      "markDefs": [{ "_key": "committee-link", "_type": "link", "href": "/about-us/committee/" }],
+      "children": [{ "_type": "span", "_key": "about-committee-text", "text": "Meet the committee and find out who helps run the club.", "marks": ["committee-link"] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-background-heading",
+      "style": "h2",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-background-heading-text", "text": "Background", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-background",
+      "style": "normal",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-background-text", "text": "The club welcomes road, off-road, leisure and competitive cyclists. New members are welcome to join a ride and discover more about the club.", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-history-heading",
+      "style": "h2",
+      "markDefs": [],
+      "children": [{ "_type": "span", "_key": "about-history-heading-text", "text": "Club History", "marks": [] }]
+    },
+    {
+      "_type": "block",
+      "_key": "about-history",
+      "style": "normal",
+      "markDefs": [{ "_key": "history-link", "_type": "link", "href": "/about-us/club-history-1882-to-2023/" }],
+      "children": [{ "_type": "span", "_key": "about-history-text", "text": "Read the history of Chippenham and District Wheelers from 1882 to the present day.", "marks": ["history-link"] }]
+    }
+  ]
+}

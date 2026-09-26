@@ -1,0 +1,50 @@
+---
+import { decodeHtmlEntities } from "../utils/text";
+
+interface Props {
+	post: {
+		id: string;
+		data: {
+			title: string;
+			excerpt?: string | null;
+			content?: unknown[];
+			publishedAt: Date | null;
+		};
+	};
+}
+
+const { post } = Astro.props;
+
+function plainText(value: unknown): string {
+	if (!value) return "";
+	if (typeof value === "string") return value.replace(/<[^>]*>/g, " ");
+	if (Array.isArray(value)) return value.map(plainText).join(" ");
+	if (typeof value !== "object") return "";
+	const node = value as Record<string, unknown>;
+	return [node.text, node.children, node.content].map(plainText).join(" ");
+}
+
+const rawExcerpt = post.data.excerpt?.trim() || plainText(post.data.content);
+const excerptText = (decodeHtmlEntities(rawExcerpt) ?? "").replace(/\s+/g, " ").trim();
+const excerpt = excerptText.length > 300
+	? `${excerptText.slice(0, 297).replace(/\s+\S*$/, "")}…`
+	: excerptText;
+---
+
+<article class="news-card">
+	<h2>
+		<a href={`/posts/${post.id}`}>{decodeHtmlEntities(post.data.title)}</a>
+	</h2>
+	{
+		post.data.publishedAt && (
+			<time datetime={post.data.publishedAt.toISOString()}>
+				{post.data.publishedAt.toLocaleDateString("en-GB", {
+					year: "numeric",
+					month: "short",
+					day: "numeric",
+				})}
+			</time>
+		)
+	}
+	{excerpt && <p>{excerpt}</p>}
+</article>

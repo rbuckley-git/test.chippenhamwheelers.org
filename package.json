@@ -11,6 +11,7 @@
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
+    "preview:remote": "astro build && wrangler dev --config ./wrangler.jsonc --remote ./dist/server/entry.mjs",
     "deploy": "astro build && wrangler deploy",
     "typecheck": "astro check"
   },

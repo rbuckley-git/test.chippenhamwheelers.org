@@ -6,6 +6,7 @@ import {
 } from "emdash";
 import { Image } from "emdash/ui";
 import Base from "../../layouts/Base.astro";
+import { decodeHtmlEntities } from "../../utils/text";
 
 const slug = decodeSlug(Astro.params.slug);
 const termsResult = await getTaxonomyTermsWithCacheHint("tag", {
@@ -51,9 +52,9 @@ if (Astro.cache?.enabled) {
 							{post.data.featured_image && (
 								<div {...post.edit.featured_image}><Image image={post.data.featured_image} /></div>
 							)}
-							<h2 {...post.edit.title}>{post.data.title}</h2>
+						<h2 {...post.edit.title}>{decodeHtmlEntities(post.data.title)}</h2>
 						</a>
-						{post.data.excerpt && <p {...post.edit.excerpt}>{post.data.excerpt}</p>}
+					{post.data.excerpt && <p {...post.edit.excerpt}>{decodeHtmlEntities(post.data.excerpt)}</p>}
 					</li>
 				))}
 			</ul>

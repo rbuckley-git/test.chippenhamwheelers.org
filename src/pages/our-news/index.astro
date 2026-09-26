@@ -1,0 +1,16 @@
+---
+import { getEmDashCollection } from "emdash";
+import Base from "../../layouts/Base.astro";
+import NewsArchive from "../../components/NewsArchive.astro";
+
+const { entries: posts, cacheHint, hasMore = false } = await getEmDashCollection("posts", {
+	orderBy: { published_at: "desc" },
+	limit: 10,
+	offset: 0,
+});
+if (Astro.cache?.enabled) Astro.cache.set(cacheHint);
+---
+
+<Base title="Our News" pageTitle="Our News">
+	<NewsArchive posts={posts} recentPosts={posts} page={1} hasMore={hasMore} />
+</Base>

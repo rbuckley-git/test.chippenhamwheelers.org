@@ -1,0 +1,28 @@
+---
+import { PortableText } from "emdash/ui";
+import ImportedIframe from "./ImportedIframe.astro";
+
+interface Props {
+	node: {
+		columns: Array<{
+			content: unknown[];
+			width?: string;
+		}>;
+	};
+}
+
+const { node } = Astro.props;
+const columns = node?.columns ?? [];
+
+if (!columns.length) {
+	return null;
+}
+---
+
+<div class="emdash-columns" style={`--column-count: ${columns.length}`}>
+	{columns.map((column) => (
+		<div class="emdash-column" style={column.width ? `flex-basis: ${column.width}` : undefined}>
+			<PortableText value={column.content} components={{ type: { htmlBlock: ImportedIframe } }} />
+		</div>
+	))}
+</div>
