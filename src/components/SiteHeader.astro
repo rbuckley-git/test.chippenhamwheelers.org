@@ -30,16 +30,24 @@ const presentationItems = (isStarterMenu
 ).map((item) =>
 	item.url === "/club-activities/club-route-library/"
 		? { ...item, url: "/club-route-library/" }
+		: item.url === "/events/" || item.label.trim().toLowerCase() === "club calendar"
+			? { ...item, label: "Club Calendar", url: "/club-calendar/" }
 		: item.url === "/about" || item.url === "/about/" || item.label.trim().toLowerCase() === "about"
 			? { ...item, label: "About Us", url: "/about-us/" }
 			: item,
 );
-const utilityItems = utilityMenu?.items?.length
+const utilityItems: Array<{ label: string; url: string; target?: string }> = utilityMenu?.items?.length
 	? utilityMenu.items
 	: [
 			{ label: "Membership", url: "/membership/" },
-			{ label: "Contact", url: "/contact/" },
-		];
+			{ label: "Contact", url: "/about-us/#contacts" },
+		]
+;
+const normalisedUtilityItems = utilityItems.map((item) =>
+			item.url === "/contact/" || item.label.trim().toLowerCase() === "contact"
+				? { ...item, url: "/about-us/#contacts" }
+				: item,
+		);
 ---
 
 <header class="site-header">
@@ -47,7 +55,7 @@ const utilityItems = utilityMenu?.items?.length
 	<div class="utility-bar">
 		<div class="site-width utility-bar__inner">
 			<nav class="utility-nav" aria-label="Top links">
-				{utilityItems.map((item) => (
+				{normalisedUtilityItems.map((item) => (
 					<a href={item.url} target={item.target} rel={item.target === "_blank" ? "noopener noreferrer" : undefined}>
 						{item.label}
 					</a>

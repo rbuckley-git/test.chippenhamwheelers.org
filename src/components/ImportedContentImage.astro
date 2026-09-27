@@ -14,9 +14,11 @@ const { node } = Astro.props;
 const asset = node?.asset;
 if (!asset) return null;
 
-const source = asset.url?.startsWith("http")
+const source = asset.url?.startsWith("/_emdash/api/media/file/")
 	? asset.url
-	: `/_emdash/api/media/file/${encodeURIComponent(asset.url ?? asset._ref ?? "")}`;
+	: asset.url?.startsWith("http")
+		? asset.url
+		: `/_emdash/api/media/file/${encodeURIComponent(asset.url ?? asset._ref ?? "")}`;
 const alignment = ["wide", "full", "left", "right"].includes(node.alignment ?? "")
 	? node.alignment
 	: "wide";

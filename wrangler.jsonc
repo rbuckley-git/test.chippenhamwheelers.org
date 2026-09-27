@@ -1,14 +1,22 @@
 {
 	"$schema": "node_modules/wrangler/config-schema.json",
-	"name": "my-emdash-site",
+	"name": "www",
 	"main": "./src/worker.ts",
 	"compatibility_date": "2026-02-24",
+        "workers_dev": true,
+        "preview_urls": true,
 	"compatibility_flags": [
 		"nodejs_compat"
 	],
         "vars": {
-            "EMDASH_SITE_URL": "https://my-emdash-site.chippenhamwheelers.workers.dev"
+            "EMDASH_SITE_URL": "https://dev.chippenhamwheelers.org"
         },
+        "routes": [
+            {
+                "pattern": "dev.chippenhamwheelers.org",
+                "custom_domain": true
+            }
+        ],
         "limits": {
             "subrequests": 10000
         },
@@ -21,15 +29,15 @@
 	"d1_databases": [
 		{
 			"binding": "DB",
-			"database_name": "my-emdash-site",
+			"database_name": "www",
 			"migrations_dir": "../../migrations",
-			"database_id": "95a061bb-7709-400f-b9ca-4f68cf60fffb",
+			"database_id": "caace04b-c9b1-4ba1-bd97-c47048c87a70",
 		},
 	],
 	"r2_buckets": [
 		{
 			"binding": "MEDIA",
-			"bucket_name": "my-emdash-media",
+			"bucket_name": "www-media",
 		},
 	],
 

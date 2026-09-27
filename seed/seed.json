@@ -141,7 +141,7 @@
 			{
 					"type": "custom",
 					"label": "Club Calendar",
-					"url": "/events/"
+					"url": "/club-calendar/"
 				},
 			{
 					"type": "custom",

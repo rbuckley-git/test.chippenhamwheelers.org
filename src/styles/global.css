@@ -117,10 +117,16 @@ main { min-height: 30vh; }
 .page-content__body .emdash-image figcaption { padding-top: .45rem; color: var(--cw-grey); font-size: .85rem; }
 .page-content__body .emdash-columns { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2rem; }
 .page-content__body .emdash-column { min-width: 0; }
+.calendar-embed { margin-top: 2.5rem; }
+.calendar-embed h2 { margin: 0 0 1rem; font-family: var(--cw-heading-font); font-size: 1.25rem; font-weight: 400; text-transform: uppercase; }
+.calendar-embed iframe { display: block; width: 100%; min-height: 700px; border: 1px solid var(--cw-border); }
+.calendar-embed p { margin-top: .75rem; }
+.calendar-embed a { color: var(--cw-orange-dark); }
 
 @media (max-width: 700px) {
 	.page-content { padding-block: 1.25rem 3rem; }
 	.page-content__body .emdash-columns { grid-template-columns: 1fr; gap: 0; }
+	.calendar-embed iframe { min-height: 620px; }
 }
 
 .emdash-table-wrapper { max-width: 100%; overflow-x: auto; overscroll-behavior-inline: contain; }

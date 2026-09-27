@@ -187,3 +187,14 @@ The existing project already has the right broad route families and server-rende
 5. Confirm availability and permitted reuse of the imported title decoration, logo, background, and activity-card media.
 6. Confirm the desired treatment for `/events/` after the external event system is considered authoritative.
 7. Verify imported collection names, fields, taxonomies, menu data, and media references against the live populated D1/R2 instance before changing templates. This should use read-only inspection only.
+## Main navigation sections discovery — 26 September 2026
+
+Reference captures are in `discovery/screenshots/sections/`.
+
+- **Club Calendar**: the requested `/club-calendar/` URL is new; the live WordPress source is `/events/`. It is primarily a `CLUB CALENDAR` heading and a RideWithGPS events embed for club `16143`, with a direct FAQ link. The authoritative event data remains RideWithGPS; no Events Manager output or `[events_list]` shortcode should be migrated.
+- **Club Activities**: ordinary editorial content with a programme introduction, risk/cancellation guidance, non-member participation and preparation information. It links to the glossary, club handbook PDF, ICE ID, insurance and activity material. The page contains repeated activity imagery on the live site but no shortcode or iframe.
+- **Youth**: ordinary editorial content with the Young Wheelers Awards Scheme, distance/logbook awards, registration guidance, certificates/badges and a `youth@chippenhamwheelers.org` contact link. It has a youth header image and no plugin output.
+- **Racing**: a long editorial page with introductory copy, quick-access links, time-trial guidance, courses, competitions, results, records, trophies, historic pages and external CTT/WTTA/British Cycling links. It has a racing hero and several legacy PDF/image links. The source includes awkward historical layout text but no shortcodes or embeds; preserve useful links without recreating obsolete plugin behaviour.
+- **Membership**: ordinary informational content explaining that membership is managed externally by RiderHQ, CSSC benefits, membership periods/prices and membership categories. `Apply for membership` links point to RiderHQ. No account, payment or membership-management functionality is in scope.
+
+Shared implementation: use the generic EmDash page renderer for the four editorial pages. Use a small dedicated calendar route only for the RideWithGPS embed and direct-link fallback. Local fixtures in `discovery/local-sections/` provide representative CMS content for development without changing production D1/R2.

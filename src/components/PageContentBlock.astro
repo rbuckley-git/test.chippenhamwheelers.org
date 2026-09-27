@@ -1,0 +1,28 @@
+---
+const { node, ...attrs } = Astro.props as {
+	node?: { style?: string; children?: Array<{ text?: string }> };
+	[key: string]: unknown;
+};
+
+const style = node?.style ?? "normal";
+const text = (node?.children ?? []).map((child) => child.text ?? "").join("").trim().toLowerCase();
+const headingAttrs = style === "h2" && text === "contacts" ? { ...attrs, id: "contacts" } : attrs;
+---
+
+{style === "h1" ? (
+	<h1 {...headingAttrs}><slot /></h1>
+) : style === "h2" ? (
+	<h2 {...headingAttrs}><slot /></h2>
+) : style === "h3" ? (
+	<h3 {...headingAttrs}><slot /></h3>
+) : style === "h4" ? (
+	<h4 {...headingAttrs}><slot /></h4>
+) : style === "h5" ? (
+	<h5 {...headingAttrs}><slot /></h5>
+) : style === "h6" ? (
+	<h6 {...headingAttrs}><slot /></h6>
+) : style === "blockquote" ? (
+	<blockquote {...attrs}><slot /></blockquote>
+) : (
+	<p {...attrs}><slot /></p>
+)}

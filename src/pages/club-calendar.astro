@@ -1,0 +1,52 @@
+---
+import { getEmDashEntry, getSeoMeta, getSiteSettings, MediaRepository } from "emdash";
+import { PortableText } from "emdash/ui";
+import Base from "../layouts/Base.astro";
+import ImportedContentImage from "../components/ImportedContentImage.astro";
+import PageContentBlock from "../components/PageContentBlock.astro";
+import RideWithGpsCalendar from "../components/RideWithGpsCalendar.astro";
+import { resolveImportedMedia } from "../utils/imported-media";
+import { resolveStarterSiteIdentity } from "../utils/site-identity";
+
+const requestedSlug = "club-calendar";
+const requested = await getEmDashEntry("pages", requestedSlug);
+const fallback = requested?.entry ? null : await getEmDashEntry("pages", "events");
+const page = requested?.entry ?? fallback?.entry;
+const cacheHint = requested?.cacheHint ?? fallback?.cacheHint;
+
+if (!page) {
+	return Astro.redirect("/404");
+}
+
+if (Astro.cache?.enabled && cacheHint) Astro.cache.set(cacheHint);
+const { siteTitle } = resolveStarterSiteIdentity(await getSiteSettings());
+const seo = getSeoMeta(page, {
+	siteTitle,
+	siteUrl: Astro.url.origin,
+	path: Astro.url.pathname.replace(/\/$/, ""),
+});
+const media = Astro.locals.emdash?.db ? new MediaRepository(Astro.locals.emdash.db) : null;
+const content = await resolveImportedMedia(page.data.content ?? [], media);
+const hasContentHeading = Array.isArray(content) && content.some((node) => {
+	if (!node || typeof node !== "object") return false;
+	const block = node as { _type?: string; style?: string };
+	return block._type === "block" && ["h1", "h2", "h3", "h4", "h5", "h6"].includes(block.style ?? "");
+});
+---
+
+<Base
+	title={seo.title}
+	pageTitle={seo.ogTitle}
+	description={seo.description}
+	canonical={seo.canonical}
+	image={seo.ogImage}
+	content={{ collection: "pages", id: page.data.id, slug: requestedSlug }}
+>
+	<article class="page-content site-width">
+		{!hasContentHeading && <h1 class="page-content__title" {...page.edit.title}>{page.data.title}</h1>}
+		<div class="page-content__body" {...page.edit.content}>
+			<PortableText value={content} components={{ block: PageContentBlock, type: { image: ImportedContentImage } }} />
+			<RideWithGpsCalendar />
+		</div>
+	</article>
+</Base>

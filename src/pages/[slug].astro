@@ -3,6 +3,7 @@ import { getEmDashEntry, getSeoMeta, decodeSlug, getSiteSettings, MediaRepositor
 import { PortableText } from "emdash/ui";
 import Base from "../layouts/Base.astro";
 import ImportedContentImage from "../components/ImportedContentImage.astro";
+import PageContentBlock from "../components/PageContentBlock.astro";
 import { resolveImportedMedia } from "../utils/imported-media";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import { transformMigratedTables } from "../utils/tablepress";
@@ -47,7 +48,7 @@ const seo = getSeoMeta(page, {
 	<article class="page-content site-width">
 		{!hasContentHeading && <h1 class="page-content__title" {...page.edit.title}>{page.data.title}</h1>}
 		<div class="page-content__body" {...page.edit.content}>
-			<PortableText value={renderedContent} components={{ type: { image: ImportedContentImage } }} />
+			<PortableText value={renderedContent} components={{ block: PageContentBlock, type: { image: ImportedContentImage } }} />
 		</div>
 	</article>
 </Base>
