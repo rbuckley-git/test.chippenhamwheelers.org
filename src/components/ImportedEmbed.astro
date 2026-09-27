@@ -1,0 +1,21 @@
+---
+interface Props {
+	node: {
+		html?: string;
+	};
+}
+
+const { node } = Astro.props;
+const source = node?.html?.match(/https?:\/\/[^\s<]+/i)?.[0]?.replace(/["')]+$/, "") ?? "";
+const destination = source.includes("/club-activities/events-faq/")
+	? "/events-faq/"
+	: source.startsWith("https://www.chippenhamwheelers.org/") || source.startsWith("https://chippenhamwheelers.org/")
+		? new URL(source).pathname
+		: null;
+---
+
+{destination && (
+	<p class="imported-embed-link">
+		<a href={destination}>Events FAQ</a>
+	</p>
+)}

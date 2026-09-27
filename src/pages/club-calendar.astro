@@ -4,7 +4,8 @@ import { PortableText } from "emdash/ui";
 import Base from "../layouts/Base.astro";
 import ImportedContentImage from "../components/ImportedContentImage.astro";
 import PageContentBlock from "../components/PageContentBlock.astro";
-import RideWithGpsCalendar from "../components/RideWithGpsCalendar.astro";
+import ImportedEmbed from "../components/ImportedEmbed.astro";
+import ImportedIframe from "../components/ImportedIframe.astro";
 import { resolveImportedMedia } from "../utils/imported-media";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 
@@ -45,8 +46,13 @@ const hasContentHeading = Array.isArray(content) && content.some((node) => {
 	<article class="page-content site-width">
 		{!hasContentHeading && <h1 class="page-content__title" {...page.edit.title}>{page.data.title}</h1>}
 		<div class="page-content__body" {...page.edit.content}>
-			<PortableText value={content} components={{ block: PageContentBlock, type: { image: ImportedContentImage } }} />
-			<RideWithGpsCalendar />
+			<PortableText
+				value={content}
+				components={{
+					block: PageContentBlock,
+					type: { image: ImportedContentImage, htmlBlock: ImportedIframe, embed: ImportedEmbed },
+				}}
+			/>
 		</div>
 	</article>
 </Base>

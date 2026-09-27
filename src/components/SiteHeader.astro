@@ -65,6 +65,7 @@ const normalisedUtilityItems = utilityItems.map((item) =>
 				<LiveSearch
 					placeholder="Search"
 					collections={["posts", "pages"]}
+					routeMap={{ posts: "/posts/:path", pages: "/:path" }}
 					class="site-search"
 					inputClass="site-search__input"
 					resultsClass="site-search__results"
