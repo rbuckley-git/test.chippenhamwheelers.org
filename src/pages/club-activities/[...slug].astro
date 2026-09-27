@@ -1,0 +1,28 @@
+---
+const segments = (Astro.params.slug ?? "")
+	.split("/")
+	.map((segment) => segment.trim())
+	.filter(Boolean);
+
+const activitySlugs = new Set([
+	"audax-series",
+	"castle-coombe-circuit",
+	"insurance",
+	"track-cycling",
+	"weekend-rides",
+	"chain-ganging",
+	"youth-riding",
+	"club-open-time-trials",
+	"training",
+	"cyclo-cross",
+	"mountain-biking",
+	"club-nights",
+]);
+const slug = segments.at(-1);
+
+if (!slug || !activitySlugs.has(slug)) {
+	return Astro.redirect("/404");
+}
+
+return Astro.rewrite(new URL(`/${slug}/`, Astro.url));
+---

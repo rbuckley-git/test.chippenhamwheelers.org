@@ -26,8 +26,9 @@ function plainText(value: unknown): string {
 
 const rawExcerpt = post.data.excerpt?.trim() || plainText(post.data.content);
 const excerptText = (decodeHtmlEntities(rawExcerpt) ?? "").replace(/\s+/g, " ").trim();
-const excerpt = excerptText.length > 300
-	? `${excerptText.slice(0, 297).replace(/\s+\S*$/, "")}…`
+
+const excerpt = excerptText.length > 150
+	? `${excerptText.slice(0, 147).replace(/\s+\S*$/, "")}…`
 	: excerptText;
 ---
 

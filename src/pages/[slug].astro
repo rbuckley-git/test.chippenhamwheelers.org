@@ -7,6 +7,7 @@ import PageContentBlock from "../components/PageContentBlock.astro";
 import { resolveImportedMedia } from "../utils/imported-media";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import { transformMigratedTables } from "../utils/tablepress";
+import ClubActivitiesPanel from "../components/ClubActivitiesPanel.astro";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -36,6 +37,20 @@ const seo = getSeoMeta(page, {
 	siteUrl: Astro.url.origin,
 	path: Astro.url.pathname.replace(/\/$/, ""),
 });
+const clubActivitySlugs = new Set([
+	"audax-series",
+	"castle-coombe-circuit",
+	"insurance",
+	"track-cycling",
+	"weekend-rides",
+	"chain-ganging",
+	"youth-riding",
+	"club-open-time-trials",
+	"training",
+	"cyclo-cross",
+	"mountain-biking",
+	"club-nights",
+]);
 ---
 
 <Base
@@ -46,6 +61,7 @@ const seo = getSeoMeta(page, {
 	content={{ collection: "pages", id: page.data.id, slug }}
 >
 	<article class="page-content site-width">
+		{clubActivitySlugs.has(slug) && <ClubActivitiesPanel />}
 		{!hasContentHeading && <h1 class="page-content__title" {...page.edit.title}>{page.data.title}</h1>}
 		<div class="page-content__body" {...page.edit.content}>
 			<PortableText value={renderedContent} components={{ block: PageContentBlock, type: { image: ImportedContentImage } }} />

@@ -1,0 +1,28 @@
+---
+const mediaFile = (id: string) => `/_emdash/api/media/file/${id}`;
+
+const activities = [
+	{ label: "Weekend rides", href: "/club-activities/weekend-rides/", media: "01M3EYSSFMYJP1953KZ9H3VCMT.png" },
+	{ label: "Audax series", href: "/club-activities/audax-series/", media: "01M3EYSSNVQ0HZA921HQPJPFV9.png" },
+	{ label: "Youth riding", href: "/club-activities/youth-riding/", media: "01M3EYSSWR5C2RTD31C5FXF03M.png" },
+	{ label: "Club and open time trials", href: "/club-activities/club-open-time-trials/", media: "01M3EYST61AQ5GC360HTSXC4J1.png" },
+	{ label: "Mountain biking", href: "/club-activities/mountain-biking/", media: "01M3EYSV0CE1S7GQDFRY4AHPZB.png" },
+	{ label: "Track cycling", href: "/club-activities/track-cycling/", media: "01M3EYSTVPN731MDPX0XBR8XQA.png" },
+	{ label: "Castle Combe circuit", href: "/club-activities/castle-coombe-circuit/", media: "01M3EYSTCSN7G0X1WMGQP0RTY7.png" },
+];
+---
+
+<section class="club-activities-panel" aria-labelledby="club-activities-panel-title">
+	<h2 id="club-activities-panel-title">Club Activities</h2>
+	<nav aria-label="Club Activities links">
+		<ul>
+			{activities.map((activity) => (
+				<li>
+					<a href={activity.href} title={activity.label}>
+						<img src={mediaFile(activity.media)} alt={activity.label} width="136" height="136" loading="lazy" decoding="async" />
+					</a>
+				</li>
+			))}
+		</ul>
+	</nav>
+</section>
