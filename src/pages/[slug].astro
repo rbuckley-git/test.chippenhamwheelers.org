@@ -8,6 +8,8 @@ import { resolveImportedMedia } from "../utils/imported-media";
 import { resolveStarterSiteIdentity } from "../utils/site-identity";
 import { transformMigratedTables } from "../utils/tablepress";
 import ClubActivitiesPanel from "../components/ClubActivitiesPanel.astro";
+import TrophyTabLinks from "../components/TrophyTabLinks.astro";
+import ImportedHtmlBlock from "../components/ImportedHtmlBlock.astro";
 
 const slug = decodeSlug(Astro.params.slug);
 
@@ -51,6 +53,23 @@ const clubActivitySlugs = new Set([
 	"mountain-biking",
 	"club-nights",
 ]);
+const isTrophyPage = slug === "trophies-and-awards";
+const isRacingPage = slug === "racing";
+const isCourseMapPage = slug === "chippenham-wheelers-time-trial-course-maps";
+const shortcodePageContent = (shortcode: string, componentKey: string) => Array.isArray(renderedContent)
+	? renderedContent.flatMap((node) => {
+		if (!node || typeof node !== "object") return [node];
+		const block = node as { _type?: string; children?: Array<{ text?: string }> };
+		if (block._type !== "block" || !block.children?.some((child) => child.text?.includes(shortcode))) return [node];
+		return [
+			{ ...block, children: block.children?.map((child) => ({ ...child, text: (child.text ?? "").split(shortcode).join("") })) },
+			{ _type: "htmlBlock", _key: componentKey, html: "" },
+		];
+	})
+	: renderedContent;
+const pageContent = isTrophyPage
+	? shortcodePageContent("[wptabs id=\"10032\"]", "trophy-links")
+	: renderedContent;
 ---
 
 <Base
@@ -60,11 +79,19 @@ const clubActivitySlugs = new Set([
 	canonical={seo.canonical}
 	content={{ collection: "pages", id: page.data.id, slug }}
 >
-	<article class="page-content site-width">
+	<article class:list={["page-content", "site-width", { "course-map-page": isCourseMapPage, "racing-page": isRacingPage }]}>
 		{clubActivitySlugs.has(slug) && <ClubActivitiesPanel />}
 		{!hasContentHeading && <h1 class="page-content__title" {...page.edit.title}>{page.data.title}</h1>}
 		<div class="page-content__body" {...page.edit.content}>
-			<PortableText value={renderedContent} components={{ block: PageContentBlock, type: { image: ImportedContentImage } }} />
+			<PortableText
+				value={pageContent}
+				components={{
+					block: PageContentBlock,
+					type: isTrophyPage
+						? { image: ImportedContentImage, htmlBlock: TrophyTabLinks }
+						: { image: ImportedContentImage, htmlBlock: ImportedHtmlBlock },
+				}}
+			/>
 		</div>
 	</article>
 </Base>

@@ -1,0 +1,48 @@
+---
+const links = [
+	["Club Digital Trophy Case", "trophy-club-digital-trophy-case"],
+	["Best All Rounder Trophy", "trophy-best-all-rounder-trophy"],
+	["Veteran’s B.A.R. Cup", "trophy-veterans-bar-cup"],
+	["The Jack Nunn 12 Hour Cup", "trophy-the-jack-nunn-12-hour-cup"],
+	["12 Hour Trophy", "trophy-12-hour-trophy"],
+	["Jack Nunn Handicap Evening 10 Series", "trophy-jack-nunn-handicap-evening-10-series"],
+	["Jackman Cup", "trophy-jackman-cup"],
+	["Time Trial Championship", "trophy-time-trial-championship"],
+	["Jack Nunn Senior Trophy", "trophy-jack-nunn-senior-trophy"],
+	["Jack Nunn Veteran Trophy", "trophy-jack-nunn-veteran-trophy"],
+	["Jack Nunn Ladies Trophy", "trophy-jack-nunn-ladies-trophy"],
+	["Jack Nunn Junior Trophy", "trophy-jack-nunn-junior-trophy"],
+	["Audax Shield", "trophy-audax-shield"],
+	["Ted Barlow Trophy – WTTA Hardriders", "trophy-ted-barlow-trophy-wtta-hardriders"],
+	["The Nixon Cup", "trophy-the-nixon-cup"],
+	["Mike Edwards Trophy", "trophy-mike-edwards-trophy"],
+	["The Hinder Cup", "trophy-the-hinder-cup"],
+	["Sheila Edwards Trophy", "trophy-sheila-edwards-trophy"],
+	["Gary Woodward Shield", "trophy-gary-woodward-shield"],
+	["Gerald Cup", "trophy-gerald-cup"],
+	["2 Up Shield", "trophy-2-up-shield"],
+	["Roberts Tankard", "trophy-roberts-tankard"],
+	["The Paul Winchcombe Trophy", "trophy-the-paul-winchcombe-trophy"],
+	["Most Improved Time Trialist", "trophy-most-improved-time-trialist"],
+	["Harrier Trophy", "trophy-harrier-trophy"],
+	["Sheila Wiseman Cup", "trophy-sheila-wiseman-cup"],
+	["Ladies Cup", "trophy-ladies-cup"],
+	["Mrs Day Cup", "trophy-mrs-day-cup"],
+	["The Kilo", "trophy-the-kilo"],
+	["Jack Nunn Tandem", "trophy-jack-nunn-tandem"],
+	["Senior Road Race Champion", "trophy-senior-road-race-champion"],
+	["Junior Track Cup", "trophy-junior-track-cup"],
+	["Harry Hunt Memorial", "trophy-harry-hunt-memorial"],
+	["Ted Sawyer Trophy", "trophy-ted-sawyer-trophy"],
+	["Junior BAR", "trophy-junior-bar"],
+	["Evans Youth Clubman Cup", "trophy-evans-youth-clubman-cup"],
+] as const;
+---
+
+<nav class="racing-shortcode-links" aria-label="Trophy links">
+	<ul>
+		{links.map(([label, slug]) => (
+			<li><a href={`/${slug}/`}>{label}</a></li>
+		))}
+	</ul>
+</nav>

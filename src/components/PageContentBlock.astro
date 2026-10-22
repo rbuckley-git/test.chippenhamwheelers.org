@@ -5,11 +5,15 @@ const { node, ...attrs } = Astro.props as {
 };
 
 const style = node?.style ?? "normal";
-const text = (node?.children ?? []).map((child) => child.text ?? "").join("").trim().toLowerCase();
+const rawHtml = (node?.children ?? []).map((child) => child.text ?? "").join("");
+const isImportedHtml = rawHtml.includes("<table") || rawHtml.includes("<h2>") || rawHtml.includes("<p>");
+const text = rawHtml.trim().toLowerCase();
 const headingAttrs = style === "h2" && text === "contacts" ? { ...attrs, id: "contacts" } : attrs;
 ---
 
-{style === "h1" ? (
+{isImportedHtml ? (
+	<div class="imported-html-block" set:html={rawHtml} />
+) : style === "h1" ? (
 	<h1 {...headingAttrs}><slot /></h1>
 ) : style === "h2" ? (
 	<h2 {...headingAttrs}><slot /></h2>

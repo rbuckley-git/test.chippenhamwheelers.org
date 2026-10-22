@@ -103,6 +103,26 @@ main { min-height: 30vh; }
 
 .page-content { padding-block: 2rem 5rem; }
 .page-content__body { width: min(100%, 960px); margin-inline: auto; }
+.racing-shortcode-links { margin: 1.5rem 0 2rem; padding: 1rem 1.25rem; background: var(--cw-grey-light); }
+.racing-shortcode-links ul { margin: 0; padding-left: 1.25rem; }
+.racing-shortcode-links li + li { margin-top: .45rem; }
+.racing-shortcode-links a { color: var(--cw-orange-dark); }
+.racing-shortcode-links a:hover { color: var(--cw-orange); }
+.racing-page .page-content__body h2 + ul { margin: 1.5rem 0 2rem; padding: 1rem 1.25rem 1rem 2.5rem; background: var(--cw-grey-light); }
+.racing-page .page-content__body h2 + ul li + li { margin-top: .45rem; }
+.imported-html-block { max-width: 100%; overflow-x: auto; }
+.imported-html-block img { display: block; width: 50%; max-width: 100%; height: auto; margin-inline: auto; }
+.imported-html-block table { width: max-content; min-width: 28rem; max-width: none; margin: 1.5rem 0; border: 1px solid var(--cw-border); border-collapse: separate; border-spacing: 0; box-shadow: 0 2px 8px rgb(0 0 0 / 8%); font-size: .92rem; }
+.imported-html-block td { padding: .55rem .75rem; border-right: 1px solid var(--cw-border); border-bottom: 1px solid var(--cw-border); text-align: left; vertical-align: top; }
+.imported-html-block tr:last-child td { border-bottom: 0; }
+.imported-html-block td:last-child { border-right: 0; }
+.imported-html-block tr:nth-child(even) { background: var(--cw-grey-light); }
+.imported-html-block tr:hover { background: rgb(242 137 24 / 12%); }
+.course-map-page .imported-html-block { overflow-x: visible; }
+.course-map-page .imported-html-block table { width: 100%; min-width: 0; table-layout: fixed; }
+.course-map-page .imported-html-block td, .course-map-page .imported-html-block th { overflow-wrap: anywhere; }
+.course-map-page .emdash-table-wrapper { overflow-x: visible; }
+.course-map-page .emdash-table-wrapper .emdash-table { width: 100%; min-width: 0; table-layout: fixed; }
 .club-activities-panel { width: min(100%, 680px); margin: 0 auto .75rem; padding: .4rem clamp(.4rem, 1.25vw, 1.25%); background: var(--cw-grey-dark); color: var(--cw-white); }
 .club-activities-panel h2 { margin: 0 0 .5rem; padding-bottom: .2rem; border-bottom: 1px solid rgb(255 255 255 / 75%); font-family: var(--cw-heading-font); font-size: .85rem; font-weight: 400; text-transform: uppercase; }
 .club-activities-panel nav ul { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: .5rem; margin: 0; padding: 0; list-style: none; }
@@ -114,7 +134,7 @@ main { min-height: 30vh; }
 .page-content__body h2 { font-size: 1.25rem; }
 .page-content__body h3 { font-size: 1.1rem; }
 .page-content__body h4, .page-content__body h5, .page-content__body h6 { font-size: 1rem; }
-.page-content__title { margin-top: 0; }
+.page-content__title { width: min(100%, 960px); margin-top: 0; margin-inline: auto; }
 .page-content__body p, .page-content__body ul, .page-content__body ol { margin: 0 0 1rem; }
 .page-content__body ul, .page-content__body ol { padding-left: 1.5rem; }
 .page-content__body a { color: var(--cw-orange-dark); }

@@ -9,11 +9,21 @@
 		"nodejs_compat"
 	],
         "vars": {
-            "EMDASH_SITE_URL": "https://dev.chippenhamwheelers.org"
+            "EMDASH_SITE_URL": "https://www.chippenhamwheelers.org"
         },
+	"send_email": [
+		{
+			"name": "EMAIL",
+			"remote": true
+		}
+	],
         "routes": [
             {
-                "pattern": "dev.chippenhamwheelers.org",
+                "pattern": "www.chippenhamwheelers.org",
+                "custom_domain": true
+            },
+            {
+                "pattern": "chippenhamwheelers.org",
                 "custom_domain": true
             }
         ],
@@ -46,7 +56,7 @@
 	// General maintenance cron trigger
 	"triggers": {
 		"crons": [
-			"* * * * *"
+			"0 * * * *"
 		],
 	},
 }

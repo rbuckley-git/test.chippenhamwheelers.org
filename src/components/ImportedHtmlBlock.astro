@@ -1,0 +1,6 @@
+---
+const { node } = Astro.props as { node?: { html?: string } };
+const html = node?.html ?? "";
+---
+
+{html && <div class="imported-html-block" set:html={html} />}
