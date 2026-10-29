@@ -9,11 +9,11 @@
 		"nodejs_compat"
 	],
         "vars": {
-            "EMDASH_SITE_URL": "https://dev.chippenhamwheelers.org"
+            "EMDASH_SITE_URL": "https://www.chippenhamwheelers.org"
         },
         "routes": [
             {
-                "pattern": "dev.chippenhamwheelers.org",
+                "pattern": "www.chippenhamwheelers.org",
                 "custom_domain": true
             }
         ],

@@ -7,6 +7,28 @@ pnpm dev              # Start the Astro dev server
 npx emdash types      # Regenerate TypeScript types from a running site
 ```
 
+## Clean EmDash CLI Login
+
+For the production site, use the EmDash device flow. Clear any stale
+`EMDASH_HEADERS` override first; an old `Authorization` header can override
+the newly issued OAuth token.
+
+```bash
+env -u EMDASH_HEADERS pnpm exec emdash logout --url https://www.chippenhamwheelers.org
+env -u EMDASH_HEADERS pnpm exec emdash login --url https://www.chippenhamwheelers.org
+```
+
+Open the device URL printed by the login command, enter its code, and approve
+the request. Verify the session with:
+
+```bash
+env -u EMDASH_HEADERS pnpm exec emdash media list \
+  --url https://www.chippenhamwheelers.org --limit 5 --json
+```
+
+If `EMDASH_HEADERS` is defined in a shell profile or automation environment,
+remove or update it there as well.
+
 The admin UI is at `http://localhost:4321/_emdash/admin`.
 
 ## Key Files
